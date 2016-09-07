@@ -53,4 +53,5 @@ jspm_packages
 ### Custom git ignore  ####
 
 bower_components
-js
+js/bower.js
+js/bower.min.js
