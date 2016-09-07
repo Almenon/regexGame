@@ -9,6 +9,8 @@
 
 div.container {
 	position: relative;
+	width:100px;
+	height:50px;
 }
 div.container p {
 	position: absolute;
