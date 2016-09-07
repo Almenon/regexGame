@@ -55,3 +55,5 @@ jspm_packages
 bower_components
 js/bower.js
 js/bower.min.js
+public/js/bower.min.js
+public/js/bower.js
