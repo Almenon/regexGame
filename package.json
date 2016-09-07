@@ -1,0 +1,27 @@
+{
+  "name": "regex",
+  "version": "1.0.0",
+  "description": "regex game",
+  "main": "app.js",
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "jquery-ui": "^1.12.0",
+    "mark.js": "^7.0.2"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-bower-concat": "^1.0.0",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "***REMOVED***",
+  "license": "ISC"
+}

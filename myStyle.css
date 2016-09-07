@@ -1,0 +1,26 @@
+.highlight{
+	background-color: inherit;
+	border-bottom: 2px solid black;
+	visibility: visible;
+}
+.goodHighlight{
+	background-color: rgb(187, 228, 187);
+}
+
+div.container {
+	position: relative;
+}
+div.container p {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+p#text{
+	visibility: hidden;
+}
+div.container>p{
+	font-size: 18px;
+}
+mark{
+	font-size: 18px;
+}
