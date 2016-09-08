@@ -1,4 +1,14 @@
 
+    "grunt": "^1.0.1",
+    "grunt-bower-concat": "^1.0.0",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2"
+
 MULTIPLAYER FRAMEWORKS:
 opt 1: game library (ex: unity, phaser, etc....)
 benefit: integrates well if i make a game
