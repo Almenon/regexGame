@@ -32,11 +32,13 @@ socket.emit('newPlayer','');
 function waitForChallenger(){
 	socket.emit('ready','');
 	console.log('waiting');
+	$('#status').text('waiting for another player to connect');
 }
 waitForChallenger();
 
 socket.on('connected', function(msg){
 	console.log(msg);
+	$('#status').text('');
 })
 
 socket.on('message', function(msg){
