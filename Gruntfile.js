@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('bower.json'),
     bower_concat: {
 	  all: {
-	    dest: 'js/bower.js'
+	    dest: 'public/js/bower.js'
 	  }
 	},
 	uglify: {
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 	      compress: true
 	    },
 	    files: {
-	      'js/bower.min.js': 'js/bower.js'
+	      'public/js/bower.min.js': 'public/js/bower.js'
 	    }
 	  }
 	}
@@ -22,7 +22,6 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-bower-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.registerTask('default', [
 	'bower_concat',
 	'uglify:bower'
