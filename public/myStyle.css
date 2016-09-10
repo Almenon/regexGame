@@ -12,6 +12,7 @@ div.container {
 	display: inline-block;
 	width: 50%;
 	height:50px;
+	margin-bottom: 5px;
 }
 div.container p {
 	position: absolute;
