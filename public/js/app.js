@@ -1,6 +1,7 @@
 var socket = io();
 
-var good  = new Mark(document.querySelector('#good'))
+var stringToMatch = "testing";
+var good  = new Mark(document.querySelector('#good'));
 var text  = new Mark(document.querySelector('#mine #text'))
 var opponentText  = new Mark(document.querySelector('#opponent #text'))
 // have to use document.querySelector
@@ -11,9 +12,10 @@ good.mark('e',{className:'goodHighlight'});
 function onInput(element) {
 
 	if(event.keyCode == 13) {
-		socket.emit('message',element.value);
+		regexString = element.value;
+		socket.emit('message',regexString);
 		try{
-			var re = new RegExp(element.value);
+			var re = new RegExp(regexString);
 		}
 		catch(SyntaxError){
 			$('#regexinput').effect('shake');
@@ -24,6 +26,13 @@ function onInput(element) {
 		//$('p').highlightRegex(); // clear old highlight
 		//$('p').highlightRegex(re);
 		element.value = '';
+
+		if(re.test(stringToMatch)){
+			socket.emit('won','');
+			// go to win page w/ score
+			// or pop up alert
+			alert('you won! ' + String(1000-regexString.length) + " points");
+		}
     }
 }
 
@@ -38,7 +47,7 @@ waitForChallenger();
 
 socket.on('connected', function(msg){
 	console.log(msg);
-	$('#status').text('');
+	$('#status').text('player 2 connected');
 })
 
 socket.on('message', function(msg){
@@ -54,4 +63,8 @@ socket.on('message', function(msg){
 socket.on('disconnected', function(notUsed){
 	console.log('opponent disconnected');
 	waitForChallenger();
+});
+
+socket.on('loss', function(notUsed){
+	alert('You lost! Better luck next time');
 });

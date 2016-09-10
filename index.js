@@ -53,7 +53,11 @@ io.on('connection', function(socket){
 			socket.join(id);
 			socket.room = id;		
 		}
-	})
+	});
+	socket.on('won',function(notUsed){
+		console.log(socket.room + ' lost')
+		socket.broadcast.to(socket.room).emit('loss','');
+	});
 })
 
 http.listen(3000, function(){
