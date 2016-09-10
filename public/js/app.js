@@ -1,12 +1,9 @@
 var socket = io();
 
 var stringToMatch = "testing";
-var good  = new Mark(document.querySelector('#good'));
-var text  = new Mark(document.querySelector('#mine #text'))
-var opponentText  = new Mark(document.querySelector('#opponent #text'))
-// have to use document.querySelector
-// unless you use mark.js jquery plugin
-good.mark('e',{className:'goodHighlight'});
+var goal = ['e'];
+var myText;
+var opponentText;
 
 
 function onInput(element) {
@@ -21,17 +18,21 @@ function onInput(element) {
 			$('#regexinput').effect('shake');
 			return;
 		}
-	
-		text.unmark().markRegExp(re,{className: 'highlight'});
-		//$('p').highlightRegex(); // clear old highlight
-		//$('p').highlightRegex(re);
+
+		myText.unmark().markRegExp(re,{className: 'highlight'});
 		element.value = '';
 
-		if(re.test(stringToMatch)){
+		matches = re.exec(stringToMatch);
+		if(matches == null || matches.length == 1) return;
+		matches.shift(); // get rid of useless first result
+		var i = 0;
+		if(matches.every(function(x){
+			return x == goal[i++];
+		})){
 			socket.emit('won','');
 			// go to win page w/ score
 			// or pop up alert
-			alert('you won! ' + String(1000-regexString.length) + " points");
+			alert('you won! ' + String(1000-regexString.length) + " points");			
 		}
     }
 }
@@ -47,7 +48,12 @@ waitForChallenger();
 
 socket.on('connected', function(msg){
 	console.log(msg);
-	$('#status').text('player 2 connected');
+	$('.status').replaceWith("<p id='good'>"+stringToMatch+"</p><p id='text'>"+stringToMatch+"</p>")
+	var good  = new Mark(document.querySelector('#good'))
+	myText  = new Mark(document.querySelector('#mine #text'))
+	opponentText  = new Mark(document.querySelector('#opponent #text'))
+	// have to use document.querySelector
+	// unless you use mark.js jquery plugin
 })
 
 socket.on('message', function(msg){
@@ -67,4 +73,5 @@ socket.on('disconnected', function(notUsed){
 
 socket.on('loss', function(notUsed){
 	alert('You lost! Better luck next time');
+	waitForChallenger(); // if loss is called before p2 connects this is a problem!
 });
