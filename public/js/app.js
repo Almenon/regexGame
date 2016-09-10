@@ -54,6 +54,7 @@ socket.on('connected', function(msg){
 	opponentText  = new Mark(document.querySelector('#opponent #text'))
 	// have to use document.querySelector
 	// unless you use mark.js jquery plugin
+	good.mark(goal[0],{className:'goodHighlight'});
 })
 
 socket.on('message', function(msg){
