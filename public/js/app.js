@@ -1,7 +1,8 @@
 var socket = io();
 
-var stringToMatch = "testing";
-var goal = ['e'];
+var possibilities = ['cat<br>bat<br>sat<br>lat<br>rat<br>mat<br>fat<br>zat','what the heck.  dude omg.  why. lol.']
+var stringToMatch = possibilities[0]
+var goal = ['cat','bat','sat','lat','rat','mat','fat'];
 var myText;
 var opponentText;
 
@@ -48,10 +49,10 @@ waitForChallenger();
 
 socket.on('connected', function(msg){
 	console.log(msg);
-	$('.status').replaceWith("<p id='good'>"+stringToMatch+"</p><p id='text'>"+stringToMatch+"</p>")
-	var good  = new Mark(document.querySelector('#good'))
-	myText  = new Mark(document.querySelector('#mine #text'))
-	opponentText  = new Mark(document.querySelector('#opponent #text'))
+	$('.status').replaceWith("<p class='good'>"+stringToMatch+"</p><p class='text'>"+stringToMatch+"</p>")
+	var good  = new Mark(document.querySelector('.good'))
+	myText  = new Mark(document.querySelector('#mine .text'))
+	opponentText  = new Mark(document.querySelector('#opponent.text'))
 	// have to use document.querySelector
 	// unless you use mark.js jquery plugin
 	good.mark(goal[0],{className:'goodHighlight'});
