@@ -15,10 +15,16 @@ var flags = ''
 function onInput(element) {
 
 	if(event.keyCode == 13) {
-		regexString = element.value;
+		var regexString = element.value;
 		if(regexString == '.*') return; // edge case where mark.js fails
 
 		socket.emit('message',regexString);
+
+		if(regexString == ''){ // another edge case
+			myText.unmark();
+			return;
+		}
+
 		try{
 			var re = new RegExp(regexString,flags);
 		}
@@ -27,6 +33,17 @@ function onInput(element) {
 			return;
 		}
 		myText.unmark().markRegExp(re,{className: 'highlight',debug: true});
+
+		if(iswin(regexString)){
+			socket.emit('won','');
+			// go to win page w/ score
+			// or pop up alert
+			alert('you won! ' + String(1000-regexString.length) + " points");			
+		}
+    }
+}
+
+function iswin(regexString){
 		if(flags.search('g') == -1){
 			re = new RegExp(regexString,flags+'g')
 		}
@@ -34,15 +51,9 @@ function onInput(element) {
 		if(matches == null || matches.length == 1) return;
 		matches.shift(); // get rid of useless first result
 		var i = 0;
-		if(matches.every(function(x){
+		return matches.every(function(x){
 			return x == goal[i++];
-		})){
-			socket.emit('won','');
-			// go to win page w/ score
-			// or pop up alert
-			alert('you won! ' + String(1000-regexString.length) + " points");			
-		}
-    }
+		})
 }
 
 function onFlags(element){
