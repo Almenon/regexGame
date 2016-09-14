@@ -4,6 +4,7 @@
   "description": "regex game",
   "main": "app.js",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "express": "^4.14.0",
     "jquery": "^3.1.0",
     "jquery-ui": "^1.12.0",
