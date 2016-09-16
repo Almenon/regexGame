@@ -21,8 +21,8 @@ div.panel {
 }
 div.panel p {
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 4px;
+	left: 4px;
 	font-size: 18px;
 	white-space: pre;
 }
