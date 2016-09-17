@@ -15,10 +15,10 @@
     "test",
     "tests"
   ],
-  "Dependencies": {
-    "socket.io": "latest",
+  "dependencies": {
     "jquery": "^3.1.0",
     "jquery-ui": "^1.12.0",
-    "mark.js": "^7.0.2"
+    "socket.io": "latest",
+    "mark.js": "^8.3.0"
   }
 }

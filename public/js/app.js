@@ -16,7 +16,6 @@ function onInput(element) {
 
 	if(event.keyCode == 13) {
 		var regexString = element.value;
-		if(regexString == '.*') return; // edge case where mark.js fails
 
 		socket.emit('message',regexString);
 
