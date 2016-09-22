@@ -31,7 +31,19 @@ function onInput(element) {
 			$('#regexinput').effect('shake');
 			return;
 		}
-		myText.unmark().markRegExp(re,{className: 'highlight',debug: true});
+		if(flags.search('g') > -1){
+			myText.unmark().markRegExp(re,{className: 'highlight',debug: true});	
+		}
+		else{
+			myText.unmark().markRegExp(re,
+				{className: 'highlight',
+				debug: true, 
+				filter: function(node,match,numMarks){
+					return numMarks != 1;
+					},
+				});			
+		}
+
 
 		if(iswin(regexString)){
 			socket.emit('won','');
