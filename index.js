@@ -14,6 +14,10 @@ app.get('/', function(req,res){
 	res.sendFile(__dirname + '/index.html')
 });
 
+app.get('/practice', function(req,res){
+	res.sendFile(__dirname + '/practice/index.html')
+});
+
 io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
