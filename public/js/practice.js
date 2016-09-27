@@ -8,6 +8,7 @@ var goal = goals[index];
 var myText;
 var opponentText;
 var flags = ''
+var enter = $.Event( 'keypress', { keyCode: 13, which: 13 } );
 
 function range(start, count) {
   return Array.apply(0, Array(count))
@@ -17,21 +18,20 @@ function range(start, count) {
 //http://stackoverflow.com/questions/3895478
 }
 
-function onInput(element) {
+$('#regexInput').on('keypress',function(event) {
 
-	if(event.keyCode == 13) {
-		var regexString = element.value;
+	if(event.keyCode == 13) {  // enter key
+		var regexString = $('#regexInput').val();
 
 		try{
 			var re = new RegExp(regexString,flags);
 		}
 		catch(SyntaxError){
-			$('#regexinput').effect('shake');
+			$('#regexInput').effect('shake');
 			return;
 		}
 
 		matches = highlightRegExp(re,'#mine .text')
-
 
 		if(iswin(matches)){
 			// go to win page w/ score
@@ -39,14 +39,14 @@ function onInput(element) {
 			alert('you won! ' + String(1000-regexString.length) + " points");			
 		}
     }
-}
+});
 
 function highlightRegExp(re,element){
 	$(element + ' span').removeClass('highlight');
 	matches = [];
 
 	if(re.flags.search('g') > -1){
-		while((match = re.exec(stringToMatch)) != null){
+		while((match = re.exec(stringToMatch)) != null && match != ''){
 			highlightMatch(match,element);
 			matches.push(match);
 		}
@@ -69,6 +69,7 @@ function highlightMatch(match, element){
 
 function iswin(matches){
 		var i = 0;
+		if(matches.length == 0) return false;
 		return matches.every(function(x){
 			return x == goal[i++];
 		})
@@ -86,6 +87,7 @@ function onFlags(element){
 		}
 		$('#flagsInput').css({"border": ''});
 		flags = input;
+		$('#regexInput').trigger(enter);
 	}
 }
 
