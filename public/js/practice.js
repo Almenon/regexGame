@@ -9,16 +9,18 @@ var myText;
 var opponentText;
 var flags = ''
 
+function range(start, count) {
+  return Array.apply(0, Array(count))
+    .map(function (element, index) { 
+      return index + start;  
+  });
+//http://stackoverflow.com/questions/3895478
+}
 
 function onInput(element) {
 
 	if(event.keyCode == 13) {
 		var regexString = element.value;
-
-		if(regexString == ''){ // another edge case
-			myText.unmark();
-			return;
-		}
 
 		try{
 			var re = new RegExp(regexString,flags);
@@ -27,18 +29,11 @@ function onInput(element) {
 			$('#regexinput').effect('shake');
 			return;
 		}
-		if(flags.search('g') > -1){
-			myText.unmark().markRegExp(re,{className: 'highlight',debug: true});	
-		}
-		else{
-			myText.unmark().markRegExp(re,
-				{className: 'highlight',
-				debug: true,
-				});			
-		}
+
+		matches = highlightRegExp(re,'#mine .text')
 
 
-		if(iswin(regexString)){
+		if(iswin(matches)){
 			// go to win page w/ score
 			// or pop up alert
 			alert('you won! ' + String(1000-regexString.length) + " points");			
@@ -46,13 +41,33 @@ function onInput(element) {
     }
 }
 
-function iswin(regexString){
-		if(flags.search('g') == -1){
-			re = new RegExp(regexString,flags+'g')
+function highlightRegExp(re,element){
+	$(element + ' span').removeClass('highlight');
+	matches = [];
+
+	if(re.flags.search('g') > -1){
+		while((match = re.exec(stringToMatch)) != null){
+			highlightMatch(match,element);
+			matches.push(match);
 		}
-		matches = re.exec(stringToMatch);
-		if(matches == null || matches.length == 1) return;
-		matches.shift(); // get rid of useless first result
+	}
+	else{
+		match = re.exec(stringToMatch)
+		if(match == null){return;}
+		highlightMatch(match,element);
+		matches.push(match);
+	}
+	return matches;
+}
+
+function highlightMatch(match, element){
+	letters = range(match.index+1, match[0].length)
+	letters.forEach(function(letterNum){
+		$(element + ' span.char'+ letterNum.toString()).addClass('highlight');
+	})	
+}
+
+function iswin(matches){
 		var i = 0;
 		return matches.every(function(x){
 			return x == goal[i++];
@@ -75,9 +90,9 @@ function onFlags(element){
 }
 
 $('.status').replaceWith("<p class='good'>"+stringToMatch+"</p><p class='text'>"+stringToMatch+"</p>")
-var good  = new Mark(document.querySelector('.good'))
-myText  = new Mark(document.querySelector('#mine .text'))
-opponentText  = new Mark(document.querySelector('#opponent .text'))
-// have to use document.querySelector
-// unless you use mark.js jquery plugin
-good.mark(goal[0],{className:'goodHighlight'});
+$(".good").lettering();
+$(".text").lettering();
+//var good  = new Mark(document.querySelector('.good'))
+//myText  = new Mark(document.querySelector('#mine .text'))
+//opponentText  = new Mark(document.querySelector('#opponent .text'))
+//good.mark(goal[0],{className:'goodHighlight'});
