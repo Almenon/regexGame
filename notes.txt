@@ -1,3 +1,49 @@
+bower install wasn't working 
+(probably something related to this http://askubuntu.com/questions/507855/bower-install-does-nothing-not-even-throw-an-error)
+
+============ Wierd Regex Issues: ===============
+a matches all a's, even though no global flag
+-------------
+. should match single char, but matches everything
+-------------
+^. with mg should match all first letters, but instead it matches entire first line
+-------------
+^. should match just first letter, but matches whole word
+-------------
+\b. matches everything
+--------------
+.* just matches cat (valid assuming no global flag, but i thought search was global default...)
+-------------
+
+regex highlighter works by repeatedly applying exec, taking out match, doing exec again.  
+. matches everything because it satisfies every possible char
+---------------------
+^. matches all on first line because taking stuff out makes the next letter always the first
+--------------------
+.* matches only cat cause .* doesn't match newlines, and when there's no match the regex highlighter exits
+
+Solution:  exit after first match if no /g flag
+use .match or exec repeatedly if /g
+
+theory 1: . is sucsessful match w/ everything, so it highlights everything.
+* but isnt that line by line basis?
+
+
+
+
+
+===================== USELESS NOTES BELOW ================
+
+
+BROWSERIFY:
+http://browserify.org/index.html
+https://www.npmjs.com/package/grunt-browserify
+https://www.npmjs.com/package/auto-require
+(looks useful, but irc people said not to use ^)
+https://github.com/substack/node-browserify
+https://blog.gaya.ninja/articles/better-javascript-dependency-management-with-browserify/
+
+
 
     "grunt": "^1.0.1",
     "grunt-bower-concat": "^1.0.0",
@@ -30,15 +76,6 @@ http://code.tutsplus.com/tutorials/build-a-real-time-chat-application-with-modul
 
 
 http://fuseinteractive.ca/blog/automating-bower-library-integration-grunt#.V7yB9ZgrLIU
-
-BROWSERIFY:
-http://browserify.org/index.html
-https://www.npmjs.com/package/grunt-browserify
-https://www.npmjs.com/package/auto-require
-(looks useful, but irc people said not to use ^)
-https://github.com/substack/node-browserify
-https://blog.gaya.ninja/articles/better-javascript-dependency-management-with-browserify/
-
 
 https://www.npmjs.com/package/watchify
 
