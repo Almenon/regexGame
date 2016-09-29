@@ -1,8 +1,0 @@
-might be easier to save correct regexp rather than correct text...
-downside: limits myself to regex problems i can solve or look up answers too
-upside: easier to store & work with 
-note: eventually for better security i should send regex to server for analysis rather than storing correct regex locally
-
-
-bower install wasn't working 
-(probably something related to this http://askubuntu.com/questions/507855/bower-install-does-nothing-not-even-throw-an-error)
