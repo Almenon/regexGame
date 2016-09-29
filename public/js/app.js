@@ -1,10 +1,11 @@
 var socket = io();
 
-var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat','what the heck.  dude omg.  why. lol.']
-var goals = [['cat','bat','sat','lat','rat','mat','fat'],['what']];
-// var index = ath.floor(Math.random()*goals.length)
-// ^ to get random choice
-var index = 0
+var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat',
+'123\n1231254215134234234243.\nwhy.\nlol.','dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?']
+var goals = [['cat','bat','sat','lat','rat','mat','fat'],
+['123','1231254215134234234243'],
+['dude@gmail.com','bobalex@yahoo.com']];
+var index = Math.floor(Math.random()*goals.length)
 var stringToMatch = possibilities[index]
 var goal = goals[index];
 var myText;
@@ -112,7 +113,7 @@ waitForChallenger();
 
 socket.on('connected', function(msg){
 	console.log(msg);
-	$('.status').replaceWith("<p class='good'>"+goals[0].join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
+	$('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 	$(".good").lettering();
 	$(".text").lettering();
 })
