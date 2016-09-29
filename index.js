@@ -18,6 +18,10 @@ app.get('/practice', function(req,res){
 	res.sendFile(__dirname + '/practice/index.html')
 });
 
+app.get('/play', function(req,res){
+	res.sendFile(__dirname + '/play/index.html')
+});
+
 io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){

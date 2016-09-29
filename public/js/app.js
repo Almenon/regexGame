@@ -42,7 +42,10 @@ $('#regexInput').on('keypress',function(event) {
 			// or pop up alert
 			if(confirm('you won! ' + String(1000-regexString.length) + ' points')){
 				location.reload();
-			}			
+			}
+			else{
+				window.location = '/';
+			}
 		}
     }
 });
