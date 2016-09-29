@@ -40,7 +40,9 @@ $('#regexInput').on('keypress',function(event) {
 			socket.emit('won','')
 			// go to win page w/ score
 			// or pop up alert
-			alert('you won! ' + String(1000-regexString.length) + " points");			
+			if(confirm('you won! ' + String(1000-regexString.length) + ' points')){
+				location.reload();
+			}			
 		}
     }
 });
@@ -73,7 +75,7 @@ function highlightMatch(match, element){
 
 function iswin(matches){
 		var i = 0;
-		if(matches.length == 0) return false;
+		if(matches == null || matches.length == 0 || matches.length != goal.length) return false;
 		return matches.every(function(x){
 			return x == goal[i++];
 		})
@@ -96,24 +98,20 @@ function onFlags(element){
 	}
 }
 
-socket.emit('newPlayer','');
-
 function waitForChallenger(){
+	$('#status').text('waiting for another player to connect');
 	socket.emit('ready','');
 	console.log('waiting');
-	$('#status').text('waiting for another player to connect');
 }
+
+socket.emit('newPlayer','');
 waitForChallenger();
 
 socket.on('connected', function(msg){
 	console.log(msg);
-	$('.status').replaceWith("<p class='good'>"+stringToMatch+"</p><p class='text'>"+stringToMatch+"</p>")
+	$('.status').replaceWith("<p class='good'>"+goals[0].join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 	$(".good").lettering();
 	$(".text").lettering();
-	// var good  = new Mark(document.querySelector('.good'))
-	// myText  = new Mark(document.querySelector('#mine .text'))
-	// opponentText  = new Mark(document.querySelector('#opponent .text'))
-	// good.mark(goal[0],{className:'goodHighlight'});
 })
 
 socket.on('message', function(regexString){
