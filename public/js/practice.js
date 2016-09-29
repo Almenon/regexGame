@@ -9,7 +9,7 @@ var goal = goals[index];
 var myText;
 var opponentText;
 var flags = ''
-var enter = $.Event( 'keypress', { keyCode: 13, which: 13 } );
+var enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
 
 function range(start, count) {
   return Array.apply(0, Array(count))
@@ -19,32 +19,29 @@ function range(start, count) {
 //http://stackoverflow.com/questions/3895478
 }
 
-$('#regexInput').on('keypress',function(event) {
+$('#regexInput').on('keyup',function(event) {
+	var regexString = $('#regexInput').val();
 
-	if(event.keyCode == 13) {  // enter key
-		var regexString = $('#regexInput').val();
+	try{
+		var re = new RegExp(regexString,flags);
+	}
+	catch(SyntaxError){
+		$('#regexInput').css({"border": '#FF0000 2px solid'});
+		return;
+	}
+	$('#regexInput').css({"border": ''})
+	matches = highlightRegExp(re,'#mine .text')
 
-		try{
-			var re = new RegExp(regexString,flags);
+	if(iswin(matches)){
+		// go to win page w/ score
+		// or pop up alert
+		if(confirm('you won! ' + String(1000-regexString.length) + ' points')){
+			location.reload();
 		}
-		catch(SyntaxError){
-			$('#regexInput').effect('shake');
-			return;
+		else{
+			window.location = '/';
 		}
-
-		matches = highlightRegExp(re,'#mine .text')
-
-		if(iswin(matches)){
-			// go to win page w/ score
-			// or pop up alert
-			if(confirm('you won! ' + String(1000-regexString.length) + ' points')){
-				location.reload();
-			}
-			else{
-				window.location = '/';
-			}
-		}
-    }
+	}
 });
 
 function highlightRegExp(re,element){
@@ -81,22 +78,21 @@ function iswin(matches){
 		})
 }
 
-function onFlags(element){
-	if(event.keyCode == 13) {
-		var input = element.value;
-		try{
-			var re = new RegExp('',input);
-		}
-		catch(SyntaxError){
-			$('#flagsInput').css({"border": '#FF0000 2px solid'});
-			return;
-		}
-		$('#flagsInput').css({"border": ''});
-		flags = input;
-		$('#regexInput').trigger(enter);
+function onFlags(event){
+	var input = $('#flagsInput').val();
+	try{
+		var re = new RegExp('',input);
 	}
+	catch(SyntaxError){
+		$('#flagsInput').css({"border": '#FF0000 2px solid'});
+		return;
+	}
+	$('#flagsInput').css({"border": ''});
+	flags = input;
+	$('#regexInput').trigger(enter);
 }
 
 $('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 $(".good").lettering();
 $(".text").lettering();
+$('#flagsInput').on('keyup',onFlags);
