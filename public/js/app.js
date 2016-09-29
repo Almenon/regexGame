@@ -1,13 +1,7 @@
 var socket = io();
 
-var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat',
-'123\n1231254215134234234243.\nwhy.\nlol.','dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?']
-var goals = [['cat','bat','sat','lat','rat','mat','fat'],
-['123','1231254215134234234243'],
-['dude@gmail.com','bobalex@yahoo.com']];
-var index = Math.floor(Math.random()*goals.length)
-var stringToMatch = possibilities[index]
-var goal = goals[index];
+var stringToMatch;
+var goal;
 var myText;
 var opponentText;
 var flags = ''
@@ -105,8 +99,10 @@ socket.emit('newPlayer','');
 $('#flagsInput').on('keyup',onFlags);
 waitForChallenger();
 
-socket.on('connected', function(msg){
-	console.log(msg);
+socket.on('connected', function(challenge){
+	console.log(challenge);
+	stringToMatch = challenge.stringToMatch;
+	goal = challenge.goal;
 	$('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 	$(".good").lettering();
 	$(".text").lettering();

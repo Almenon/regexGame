@@ -8,6 +8,23 @@ var ready = false;
 var id;
 var numPlayers = 0;
 
+var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat',
+'123\n1231254215134234234243.\nwhy.\nlol.','dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?']
+var goals = [['cat','bat','sat','lat','rat','mat','fat'],
+['123','1231254215134234234243'],
+['dude@gmail.com','bobalex@yahoo.com']];
+var index = 0;
+var challenge = {
+	'stringToMatch':'',
+	'goal':'',
+}
+function randomChallenge(){
+	index = Math.floor(Math.random()*goals.length);
+	challenge.stringToMatch = possibilities[index];
+	challenge.goal = goals[index];
+	return challenge;
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req,res){
@@ -51,7 +68,7 @@ io.on('connection', function(socket){
 			ready = false;
 			socket.join(id);
 			socket.room = id;
-			io.in(id).emit('connected',id);
+			io.in(id).emit('connected',randomChallenge());
 			console.log(socket.id + 'joined room ' + id);
 		}
 		else{
