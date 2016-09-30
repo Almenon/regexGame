@@ -1,0 +1,3 @@
+if you want confetti:
+http://stackoverflow.com/questions/4037212/html-canvas-full-screen
+http://jsfiddle.net/Javalsu/vxP5q/743/?utm_source=website&utm_medium=embed&utm_campaign=vxP5q
