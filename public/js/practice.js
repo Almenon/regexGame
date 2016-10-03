@@ -10,6 +10,7 @@ var myText;
 var opponentText;
 var flags = ''
 var enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
+var startTime;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
@@ -35,7 +36,10 @@ $('#regexInput').on('keyup',function(event) {
 	if(iswin(matches)){
 		// go to win page w/ score
 		// or pop up alert
-		if(confirm('you won! ' + String(1000-regexString.length) + ' points')){
+		var endTime = new Date();
+		var numSeconds = Math.floor((endTime - startTime)/1000);
+		var score = 500-regexString.length-numSeconds
+		if(confirm('you won! ' + String(score) + ' points')){
 			location.reload();
 		}
 		else{
@@ -95,4 +99,5 @@ function onFlags(event){
 $('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 $(".good").lettering();
 $(".text").lettering();
+startTime = new Date();
 $('#flagsInput').on('keyup',onFlags);
