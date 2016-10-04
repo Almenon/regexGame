@@ -90,7 +90,7 @@ function onFlags(event){
 }
 
 function waitForChallenger(){
-	$('#status').text('waiting for another player to connect');
+	$('.status').text('Waiting for another player to connect...');
 	socket.emit('ready','');
 	console.log('waiting');
 }
