@@ -41,6 +41,10 @@ mark{
 	width: 38.5%;
 }
 #flagsInput{
-	width:10%;
+	width: 10.1%;
 	display:inline-block;
+}
+.glyphicon-question-sign{
+	position:relative;
+	right:30px;
 }

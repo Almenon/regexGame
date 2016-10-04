@@ -20,6 +20,14 @@ function range(start, count) {
 //http://stackoverflow.com/questions/3895478
 }
 
+$('.glyphicon-question-sign').hover(function(event){
+	$(this).toggleClass('text-info');
+})
+
+$('.glyphicon-question-sign').on('click',function(event){
+	// todo: launch help modal
+})
+
 $('#regexInput').on('keyup',function(event) {
 	var regexString = $('#regexInput').val();
 
