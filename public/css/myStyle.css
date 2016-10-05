@@ -48,3 +48,10 @@ mark{
 	position:relative;
 	right:30px;
 }
+.glyphicon-question-sign:hover{
+	color:blue;
+}
+
+.modal-body .btn{
+	display:block !important;
+}
