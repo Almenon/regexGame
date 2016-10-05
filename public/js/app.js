@@ -6,6 +6,7 @@ var myText;
 var opponentText;
 var flags = ''
 var enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
+var startTime;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
@@ -31,12 +32,14 @@ $('#regexInput').on('keyup',function(event) {
 	if(iswin(matches)){
 		// go to win page w/ score
 		// or pop up alert
-		if(confirm('you won! ' + String(1000-regexString.length) + ' points')){
+		var endTime = new Date();
+		var numSeconds = Math.floor((endTime - startTime)/1000);
+		var score = 500-regexString.length-numSeconds
+		$('#winModal').modal();
+		$('#score').text(String(score) + ' points');
+		$('#playAgain').on('click',function(){
 			location.reload();
-		}
-		else{
-			window.location = '/';
-		}
+		});
 	}
 });
 
@@ -103,6 +106,7 @@ socket.on('connected', function(challenge){
 	console.log(challenge);
 	stringToMatch = challenge.stringToMatch;
 	goal = challenge.goal;
+	startTime = new Date();
 	$('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 	$(".good").lettering();
 	$(".text").lettering();
