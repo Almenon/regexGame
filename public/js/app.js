@@ -18,6 +18,7 @@ function range(start, count) {
 
 $('#regexInput').on('keyup',function(event) {
 	var regexString = $('#regexInput').val();
+	socket.emit('message',regexString + '/' + flags)
 
 	try{
 		var re = new RegExp(regexString,flags);
