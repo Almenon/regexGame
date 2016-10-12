@@ -36,6 +36,7 @@ $('#regexInput').on('keyup',function(event) {
 		var endTime = new Date();
 		var numSeconds = Math.floor((endTime - startTime)/1000);
 		var score = 500-regexString.length-numSeconds
+		socket.emit('won',String(score))
 		$('#winModal').modal();
 		$('#score').text(String(score) + ' points');
 		$('#playAgain').on('click',function(){

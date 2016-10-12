@@ -79,8 +79,8 @@ io.on('connection', function(socket){
 			socket.room = id;		
 		}
 	});
-	socket.on('won',function(notUsed){
-		console.log(socket.room + ' lost')
+	socket.on('won',function(score){
+		console.log(socket.room + ' won with score ' + score)
 		socket.broadcast.to(socket.room).emit('loss','');
 	});
 })
