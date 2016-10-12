@@ -46,6 +46,7 @@ $('#regexInput').on('keyup',function(event) {
 });
 
 function highlightRegExp(re,element){
+	// highlights lettering.js expanded element according to regex
 	$(element + ' span').removeClass('highlight');
 	matches = [];
 
@@ -65,6 +66,7 @@ function highlightRegExp(re,element){
 }
 
 function highlightMatch(match, element){
+	//highlights lettering.js expanded element according to indices of regex match
 	letters = range(match.index+1, match[0].length)
 	letters.forEach(function(letterNum){
 		$(element + ' span.char'+ letterNum.toString()).addClass('highlight');
@@ -126,11 +128,11 @@ socket.on('message', function(regexString){
 })
 
 socket.on('disconnected', function(notUsed){
-	console.log('opponent disconnected');
-	waitForChallenger();
+	alert('opponent disconnected!')
+	location.reload();
 });
 
 socket.on('loss', function(notUsed){
 	alert('You lost! Better luck next time');
-	waitForChallenger(); // if loss is called before p2 connects this is a problem!
+	location.reload();
 });

@@ -6,7 +6,6 @@ var path = require('path');
 
 var ready = false;
 var id;
-var numPlayers = 0;
 
 var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat',
 '123\n1231254215134234234243.\nwhy.\nlol.','dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?']
@@ -43,23 +42,17 @@ io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
 		console.log('user disconnected')
-
-		if(numPlayers == 1){
-			ready = false;
+		if(io.engine.clientsCount%2 == 0) ready = false;
+		else{ // send disconnect to partner, who reloads page
+			ready = true;
+			socket.broadcast.to(socket.room).emit('disconnected','');
 		}
-		else{ // send disconnect to partner, who calls ready
-			io.in(socket.room).emit('disconnected','');
-		}
-		numPlayers--;
 
 	})
 	socket.on('newPlayer',function(notUsed){
-		numPlayers++;
-		console.log(numPlayers);
+		console.log(io.engine.clientsCount);
 	});
 	socket.on('message',function(msg){
-		console.log('message: ' + msg);
-		console.log(socket.room);
 		// socket.id is default room
 		socket.broadcast.to(socket.room).emit('message',msg);
 	})
@@ -68,6 +61,10 @@ io.on('connection', function(socket){
 			ready = false;
 			socket.join(id);
 			socket.room = id;
+
+			socket.gamePair = id.slice(1)
+			io.sockets.connected[id.slice(1)].gamePair = socket.id;
+
 			io.in(id).emit('connected',randomChallenge());
 			console.log(socket.id + 'joined room ' + id);
 		}
@@ -82,6 +79,10 @@ io.on('connection', function(socket){
 	socket.on('won',function(score){
 		console.log(socket.room + ' won with score ' + score)
 		socket.broadcast.to(socket.room).emit('loss','');
+		
+		io.sockets.connected[socket.gamePair].disconnect();
+		socket.disconnect();
+		
 	});
 })
 
