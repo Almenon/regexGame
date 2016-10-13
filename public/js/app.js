@@ -77,7 +77,7 @@ function iswin(matches){
 		var i = 0;
 		if(matches == null || matches.length == 0 || matches.length != goal.length) return false;
 		return matches.every(function(x){
-			return x == goal[i++];
+			return x[0] == goal[i++];
 		})
 }
 
