@@ -11,6 +11,7 @@ var opponentText;
 var flags = ''
 var enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
 var startTime;
+var regexString;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
@@ -21,14 +22,17 @@ function range(start, count) {
 }
 
 $('#regexInput').on('keyup',function(event) {
-	var regexString = $('#regexInput').val();
+	regexString = $('#regexInput').val();
+	handleInput(regexString,flags)
+});
 
+function handleInput(regexString,flags){
 	try{
 		var re = new RegExp(regexString,flags);
 	}
 	catch(SyntaxError){
 		$('#regexInput').css({"border": '#FF0000 2px solid'});
-		return;
+		return false;
 	}
 	$('#regexInput').css({"border": ''})
 	matches = highlightRegExp(re,'#mine .text')
@@ -44,8 +48,12 @@ $('#regexInput').on('keyup',function(event) {
 		$('#playAgain').on('click',function(){
 			location.reload();
 		});
+		return "win";
 	}
-});
+	else return "noWin";	
+}
+
+
 
 function highlightRegExp(re,element){
 	$(element + ' span').removeClass('highlight');
@@ -81,22 +89,24 @@ function iswin(matches){
 		})
 }
 
-function onFlags(event){
-	var input = $('#flagsInput').val();
+$('#flagsInput').on('keyup',function(event){
+	changeFlags($('#flagsInput').val());
+});
+
+function changeFlags(input){
 	try{
 		var re = new RegExp('',input);
 	}
 	catch(SyntaxError){
 		$('#flagsInput').css({"border": '#FF0000 2px solid'});
-		return;
+		return false;
 	}
 	$('#flagsInput').css({"border": ''});
 	flags = input;
-	$('#regexInput').trigger(enter);
+	handleInput(regexString,flags);
 }
 
 $('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
 $(".good").lettering();
 $(".text").lettering();
 startTime = new Date();
-$('#flagsInput').on('keyup',onFlags);
