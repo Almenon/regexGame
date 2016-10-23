@@ -1,8 +1,9 @@
 var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat',
 '123\n1231254215134234234243.\nwhy.\nlol.','dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?']
-var goals = [['cat','bat','sat','lat','rat','mat','fat'],
-['123','1231254215134234234243'],
-['dude@gmail.com','bobalex@yahoo.com']];
+var goals = [[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19,21,22,23,25,26,27],[1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]]
+//var goals = [['cat','bat','sat','lat','rat','mat','fat'],
+//['123','1231254215134234234243'],
+//['dude@gmail.com','bobalex@yahoo.com']];
 var index = Math.floor(Math.random()*goals.length)
 var stringToMatch = possibilities[index]
 var goal = goals[index];
@@ -83,10 +84,15 @@ function highlightMatch(match, element){
 
 function iswin(matches){
 		var i = 0;
-		if(matches == null || matches.length == 0 || matches.length != goal.length) return false;
-		return matches.every(function(x){
-			return x[0] == goal[i++];
+		if(matches == null || matches.length == 0 || matches.length == 1 && matches[0] == '') return false;
+		charsMatch = matches.every(function(match){
+			nums = range(match.index+1,match[0].length) // add 1 because goal uses 1-based indexing
+			return nums.every(function(num){
+				return num == goal[i++];
+			})
 		})
+		return i == goal.length && charsMatch
+		// make sure all chars have been tested and that chars match
 }
 
 $('#flagsInput').on('keyup',function(event){
@@ -106,7 +112,14 @@ function changeFlags(input){
 	handleInput(regexString,flags);
 }
 
-$('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
+function highlightByNums(nums){
+	nums.forEach(function(num){
+		$('.char'+num).addClass('good')
+	})
+}
+
+$('.status').replaceWith("<p class='goal'>"+stringToMatch+"</p><p class='text'>"+stringToMatch+"</p>")
 $(".good").lettering();
 $(".text").lettering();
 startTime = new Date();
+highlightByNums(goal)
