@@ -1,3 +1,23 @@
 if you want confetti:
 http://stackoverflow.com/questions/4037212/html-canvas-full-screen
 http://jsfiddle.net/Javalsu/vxP5q/743/?utm_source=website&utm_medium=embed&utm_campaign=vxP5q
+
+function get_highlight_nums(){
+	list = []
+	for(x of $('.highlight')){
+		charClass = x.getAttribute('class')
+		numberString = charClass.replace(/[^\d]/g,'')
+		number = parseInt(numberString)
+		list.push(number)
+	}
+	JSON.stringify(list)
+}
+
+function highlightByNums(nums){
+	nums.forEach(function(num){
+		$('.char'+num).addClass('good')
+	})
+}
+
+https://gist.github.com/alexpchin/3f257d0bb813e2c8c476
+^ socket.io cheatsheet
