@@ -7,6 +7,7 @@ var opponentText;
 var flags = ''
 var enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
 var startTime;
+var regexString;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
@@ -17,9 +18,7 @@ function range(start, count) {
 }
 
 $('#regexInput').on('keyup',function(event) {
-	var regexString = $('#regexInput').val();
-	socket.emit('message',regexString + '/' + flags)
-
+	regexString = $('#regexInput').val();
 	try{
 		var re = new RegExp(regexString,flags);
 	}
@@ -27,22 +26,10 @@ $('#regexInput').on('keyup',function(event) {
 		$('#regexInput').css({"border": '#FF0000 2px solid'});
 		return;
 	}
-	$('#regexInput').css({"border": ''})
-	matches = highlightRegExp(re,'#mine .text')
+	socket.emit('message',regexString + '/' + flags)
 
-	if(iswin(matches)){
-		// go to win page w/ score
-		// or pop up alert
-		var endTime = new Date();
-		var numSeconds = Math.floor((endTime - startTime)/1000);
-		var score = 500-regexString.length-numSeconds
-		socket.emit('won',String(score))
-		$('#winModal').modal();
-		$('#score').text(String(score) + ' points');
-		$('#playAgain').on('click',function(){
-			location.reload();
-		});
-	}
+	$('#regexInput').css({"border": ''})
+	highlightRegExp(re,'#mine .text')
 });
 
 function highlightRegExp(re,element){
@@ -73,15 +60,6 @@ function highlightMatch(match, element){
 	})	
 }
 
-function iswin(matches){
-		var i = 0;
-		if(matches == null || matches.length == 0 || matches.length != goal.length) return false;
-		return matches.every(function(x){
-			return x[0] == goal[i++];
-		})
-}
-
-
 function onFlags(event){
 	var input = $('#flagsInput').val();
 	try{
@@ -106,14 +84,21 @@ socket.emit('newPlayer','');
 $('#flagsInput').on('keyup',onFlags);
 waitForChallenger();
 
+function highlightByNums(nums){
+	nums.forEach(function(num){
+		$('.char'+num).addClass('good')
+	})
+}
+
 socket.on('connected', function(challenge){
 	console.log(challenge);
 	stringToMatch = challenge.stringToMatch;
 	goal = challenge.goal;
 	startTime = new Date();
-	$('.status').replaceWith("<p class='good'>"+goal.join('\n')+"</p><p class='text'>"+stringToMatch+"</p>")
+	$('.status').replaceWith("<p class='goal'>"+stringToMatch+"</p><p class='text'>"+stringToMatch+"</p>")
 	$(".good").lettering();
 	$(".text").lettering();
+	highlightByNums(goal)
 })
 
 socket.on('message', function(regexString){
@@ -136,3 +121,17 @@ socket.on('loss', function(notUsed){
 	alert('You lost! Better luck next time');
 	location.reload();
 });
+
+socket.on('won', function(notUsed){
+	// go to win page w/ score
+	// or pop up alert
+	var endTime = new Date();
+	var numSeconds = Math.floor((endTime - startTime)/1000);
+	var score = 500-regexString.length-numSeconds
+	socket.emit('won',String(score))
+	$('#winModal').modal();
+	$('#score').text(String(score) + ' points');
+	$('#playAgain').on('click',function(){
+		location.reload();
+	});
+})
