@@ -1,12 +1,23 @@
-var possibilities = ['cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat',
-'123\n1231254215134234234243.\nwhy.\nlol.','dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?']
-var goals = [[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19,21,22,23,25,26,27],[1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]]
-//var goals = [['cat','bat','sat','lat','rat','mat','fat'],
-//['123','1231254215134234234243'],
-//['dude@gmail.com','bobalex@yahoo.com']];
-var index = Math.floor(Math.random()*goals.length)
-var stringToMatch = possibilities[index]
-var goal = goals[index];
+
+var challenges = [{
+	"text": "cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat",
+	"goal": [1,2,3,5,6,7,9,10,11,13,14,15,17,18,19,21,22,23,25,26,27]
+},
+{
+	"text": "123\n1231254215134234234243.\nwhy.\nlol.",
+	"goal": [1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+},
+{
+	"text": "dude@gmail.com\nbobalex@yahoo.com duh\nwhat is the flight speed of an african ostrich?",
+	"goal": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
+},
+{"text":"cat\nbat\nsat\nlat\nrat\nmat\nfat\nzat","goal":[2,3,6,7,10,11,14,15,18,19,22,23,26,27,30,31]},
+{"text":"d.de.a.b.c.d.e.f.fa.","goal":[3,4,18,19]},
+{"text":":) :):)a woeifjoewi2-394 :):):) :)\n:):):) :) :):):):) :):) :):):)\n: ) ): :)))","goal":[26,27,28,29,30,31,36,37,38,39,40,41,46,47,48,49,50,51,52,53,60,61,62,63,64,65]}
+];
+var index = Math.floor(Math.random()*challenges.length)
+var stringToMatch = challenges[index].text
+var goal = challenges[index].goal
 var myText;
 var opponentText;
 var flags = ''
@@ -118,8 +129,24 @@ function highlightByNums(nums){
 	})
 }
 
-$('.status').replaceWith("<p class='goal'>"+stringToMatch+"</p><p class='text'>"+stringToMatch+"</p>")
-$(".good").lettering();
+$('.status').replaceWith("<p class='text'></p>")
+$('.text').text(stringToMatch)
 $(".text").lettering();
 startTime = new Date();
 highlightByNums(goal)
+
+
+function y(){
+	var challenge = {
+		'text':stringToMatch,
+		'goal':[]
+	}
+	for(x of $('.highlight')){
+		charClass = x.getAttribute('class')
+		numberString = charClass.replace(/[^\d]/g,'')
+		number = parseInt(numberString)
+		challenge.goal.push(number)
+	}
+
+	return JSON.stringify(challenge)
+}
