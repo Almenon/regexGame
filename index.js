@@ -79,13 +79,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req,res){
 	res.sendFile(__dirname + '/index.html')
 });
-
 app.get('/practice', function(req,res){
 	res.sendFile(__dirname + '/practice/index.html')
 });
-
 app.get('/play', function(req,res){
 	res.sendFile(__dirname + '/play/index.html')
+});
+app.get('/create', function(req,res){
+	res.sendFile(__dirname + '/create/index.html')
 });
 
 io.on('connection', function(socket){
