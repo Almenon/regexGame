@@ -35,6 +35,8 @@ mark{
 #mine{
 	float:left;
 }
+
+
 #regexInput{
 	margin-left:8;
 	display:inline-block;
@@ -44,6 +46,8 @@ mark{
 	width: 10.1%;
 	display:inline-block;
 }
+
+
 .glyphicon-question-sign{
 	position:relative;
 	right:30px;
@@ -54,4 +58,44 @@ mark{
 
 .modal-body .btn{
 	display:block !important;
+}
+
+/*Create CSS*/
+
+#fe{
+    /* border-color: rgb(169, 169, 169); */
+    -webkit-appearance: textarea;
+    /* background-color: white; */
+    /* -webkit-rtl-ordering: logical; */
+    /* user-select: text; */
+    flex-direction: column;
+    /* resize: auto; */
+    /* cursor: auto; */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-width: 1px;
+    border-style: solid;
+    /* border-color: initial; */
+    /* border-image: initial; */
+    padding: 2px;
+}
+
+#af{
+    border: 1px solid #ccc;
+    border-radius:4px;
+    width: 49%;
+    height: 200px;
+    position:relative;
+    margin-left:8px;
+    margin-bottom:6px;
+    margin-top:6px;
+}
+textarea{
+	position: absolute;
+    left: 0px;
+    top: 0px;
+    background: transparent;
+    resize: none;
+    width: 100%;
+    height: 100%;
 }
