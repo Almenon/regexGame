@@ -39,6 +39,8 @@ var challenge = {
 	'goal':'',
 	'id':0,
 }
+var games;
+
 function randomChallenge(){
 	index = Math.floor(Math.random()*allChallenges.length);
 	challenge.stringToMatch = allChallenges[index]['text'];
@@ -98,6 +100,10 @@ function addToSocketPair(socket,property,value){
 	io.sockets.connected[socket.gamePair][property] = value;
 }
 
+var isEmpty = function(obj) {
+  return Object.keys(obj).length === 0;
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req,res){
@@ -112,21 +118,16 @@ app.get('/play', function(req,res){
 app.get('/create', function(req,res){
 	res.sendFile(__dirname + '/create/index.html')
 });
+app.get('/room/:id', function(req,res){
+	roomId = req.params.id
+	console.log(roomId)
+})
 
 io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
-		console.log('user disconnected')
-		if(io.engine.clientsCount%2 == 0) ready = false;
-		else{ // send disconnect to partner, who reloads page
-			ready = true;
-			socket.broadcast.to(socket.room).emit('disconnected','');
-		}
-
+		// leave room
 	})
-	socket.on('newPlayer',function(notUsed){
-		console.log(io.engine.clientsCount);
-	});
 	socket.on('message',function(regex){
 		var challengeId = socket.challengeId;
 		var matches = applyRegex(regex,challengeId)
@@ -140,26 +141,16 @@ io.on('connection', function(socket){
 		// socket.id is default room
 		socket.broadcast.to(socket.room).emit('message',regex);
 	})
-	socket.on('ready',function(notUsed){
-		if(ready){
-			ready = false;
-			socket.join(id);
-			socket.room = id;
+	socket.on('ready',function(id){
+		// if room has more than 1 player and is not set as private, join as spectator
+		// otherwise join room
+		id = 'r' + socket.id; // random ID that changes every connection
+		socket.join(id);
+		socket.room = id;
 
-			socket.gamePair = id.slice(1)
-			io.sockets.connected[id.slice(1)].gamePair = socket.id;
-
-			challenge = randomChallenge()
-			addToSocketPair(socket,'challengeId',challenge.id)
-			io.in(id).emit('connected',challenge);
-			console.log(socket.id + 'joined room ' + id);
-		}
-		else{
-			ready = true;
-			id = 'r' + socket.id; // random ID that changes every connection
-			console.log('waiting');	
-			socket.join(id);
-			socket.room = id;		
+		challenge = randomChallenge()
+		io.in(id).emit('connected',challenge);
+		console.log(socket.id + 'joined room ' + id);
 		}
 	});
 })
