@@ -1,0 +1,19 @@
+﻿extends layout
+
+block head
+	link(rel='stylesheet', type='text/css', href='stylesheets/homepage.css')
+
+block body
+	#main
+		h3 Test your regex skills:
+		p
+			i Match the green text to win
+		button.btn(type='button') practice
+		button.btn(type='button') play
+	script.
+		$('.btn')[0].addEventListener('click',function(){
+		window.location = '/practice';
+		})
+		$('.btn')[1].addEventListener('click',function(){
+		window.location = '/play';
+		})

@@ -1,0 +1,58 @@
+.highlight{
+	background-color: inherit;
+	border-bottom: 2px solid black;
+	visibility: visible;
+}
+.good{
+	background-color: rgb(187, 228, 187);
+}
+#superContainer{
+	margin-left:5px;
+	margin-right:5px;
+	margin-bottom: 5px;
+}
+div.panel {
+	position: relative;
+	display: inline-block;
+	width: 49%;
+	height:300px;
+	margin: 4;
+	margin-top: 8;
+}
+div.panel p {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	font-size: 18px;
+	white-space: pre;
+}
+#text{
+	visibility: hidden;
+}
+#mine{
+	float:left;
+}
+
+
+#regexInput{
+	margin-left:8;
+	display:inline-block;
+	width: 38.5%;
+}
+#flagsInput{
+	width: 10.1%;
+	display:inline-block;
+}
+
+
+.glyphicon-question-sign{
+	position:relative;
+	right:30px;
+}
+.glyphicon-question-sign:hover{
+	color:blue;
+}
+
+.modal-body .btn{
+	display:block !important;
+}

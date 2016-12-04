@@ -11,8 +11,8 @@ var regexString;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
-    .map(function (element, index) { 
-      return index + start;  
+	.map(function (element, index) { 
+	  return index + start;  
   });
 //http://stackoverflow.com/questions/3895478/does-javascript-have-a-method-like-range-to-generate-an-array-based-on-suppl
 }

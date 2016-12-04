@@ -37,8 +37,8 @@ var regexString;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
-    .map(function (element, index) { 
-      return index + start;  
+	.map(function (element, index) { 
+	  return index + start;  
   });
 //http://stackoverflow.com/questions/3895478
 }
@@ -151,7 +151,7 @@ function y(){
 		'text':stringToMatch,
 		'goal':[]
 	}
-	for(x of $('.highlight')){
+	for(x in $('.highlight')){
 		charClass = x.getAttribute('class')
 		numberString = charClass.replace(/[^\d]/g,'')
 		number = parseInt(numberString)

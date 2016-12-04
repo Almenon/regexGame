@@ -1,44 +1,11 @@
+﻿/*common CSS*/
 .highlight{
 	background-color: inherit;
 	border-bottom: 2px solid black;
 	visibility: visible;
 }
-.good{
-	background-color: rgb(187, 228, 187);
-}
-#superContainer{
-	margin-left:5px;
-	margin-right:5px;
-	margin-bottom: 5px;
-}
-div.panel {
-	position: relative;
-	display: inline-block;
-	width: 49%;
-	height:300px;
-	margin: 4;
-	margin-top: 8;
-}
-div.panel p {
-	position: absolute;
-	top: 4px;
-	left: 4px;
-	font-size: 18px;
-	white-space: pre;
-}
-#text{
-	visibility: hidden;
-}
-mark{
-	padding: 0em !important; /* overrides bootstrap padding */
-}
-#mine{
-	float:left;
-}
-
-
 #regexInput{
-	margin-left:8;
+	margin-left: 8px;
 	display:inline-block;
 	width: 38.5%;
 }
@@ -46,7 +13,6 @@ mark{
 	width: 10.1%;
 	display:inline-block;
 }
-
 
 .glyphicon-question-sign{
 	position:relative;
@@ -60,9 +26,8 @@ mark{
 	display:block !important;
 }
 
-/*Create CSS*/
 
-#fe{
+#text{
     /* border-color: rgb(169, 169, 169); */
     -webkit-appearance: textarea;
     /* background-color: white; */
@@ -79,8 +44,7 @@ mark{
     /* border-image: initial; */
     padding: 2px;
 }
-
-#af{
+#textContainer{
     border: 1px solid #ccc;
     border-radius:4px;
     width: 49%;

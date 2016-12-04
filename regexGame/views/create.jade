@@ -1,0 +1,44 @@
+﻿extends layout
+
+block head
+	meta(name='description', content='Practice your regex here')
+	link(rel='stylesheet', type='text/css', href='stylesheets/create.css')
+
+block body
+	#textContainer
+		span#text
+		textarea#textInput
+	input#regexInput.form-control(type='text', placeholder='regex here')
+	input#flagsInput.form-control(type='text', placeholder='mig')
+	span.glyphicon.glyphicon-question-sign(data-toggle='modal', data-target='#helpModal')
+	// Modal
+	#helpModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+		.modal-dialog(role='document')
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') ×
+					h4#myModalLabel.modal-title Help
+				.modal-body
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation1') How do I play?
+					#explanation1.collapse
+						.well
+							| Underline the green text to win.  Use shorter regex and be speedy for a higher score
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation2') What is Regex?
+					#explanation2.collapse
+						.well If you don't know what regex is, this is not the place for you
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation3') What are these flags?
+					#explanation3.collapse
+						.well
+							| * m: multiline (anchors apply to each line)
+							br
+							|		 * i: case-insensitive
+							br
+							|		 * g: global
+							br
+							|		 * javascript does not have any other flags
+				.modal-footer
+					button.btn.btn-default(type='button', data-dismiss='modal') Close
+	script(src='js/jquery.lettering-0.6.1.min.js')
+	script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+	script(src='js/create.js')

@@ -8,8 +8,8 @@ var regexString;
 
 function range(start, count) {
   return Array.apply(0, Array(count))
-    .map(function (element, index) { 
-      return index + start;  
+	.map(function (element, index) { 
+	  return index + start;  
   });
 //http://stackoverflow.com/questions/3895478
 }
@@ -21,8 +21,8 @@ $('#regexInput').on('keyup',function(event) {
 
 $('textarea').on('keyup',function(event) {
 	stringToMatch = $('textarea').val()
-	$('#fe').text(stringToMatch); // put input in span for lettering
-	$('#fe').lettering();
+	$('#text').text(stringToMatch); // put input in span for lettering
+	$('#text').lettering();
 });
 
 function handleInput(regexString,flags){
@@ -34,7 +34,7 @@ function handleInput(regexString,flags){
 		return false;
 	}
 	$('#regexInput').css({"border": ''})
-	highlightRegExp(re,'#af')	
+	highlightRegExp(re,'#textContainer')	
 }
 
 

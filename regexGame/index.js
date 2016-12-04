@@ -3,8 +3,6 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
-var ready = false;
-var id;
 
 
 var easy = [{
@@ -21,7 +19,7 @@ var easy = [{
 	"goal": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
 },
 {"text":"d.de.a.b.c.d.e.f.fa.","goal":[3,4,18,19]},
-{"text":"Some flaGs might come in handy...\nggggggGGgggGGGggggGGGGgggggGGGGGggggg\nGggggGGGGGgggGGGGgggGGGgggGGggggGGg\ngggGGggGgggGGGggGgGGgGgGgGGGGGgGgGg\n","goal":[9,14,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143]},
+{"text":"Some flaGs might come in handy...\nggggggGGgggGGGggggGGGGgggggGGGGGggggg\nGggggGGGGGgggGGGGgggGGGgggGGggggGGg\ngggGGggGgggGGGggGgGGgGgGgGGGGGgGgGg\n","goal":[9,14,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143]}
 ];
 var hard = [
 {
@@ -39,19 +37,18 @@ var challenge = {
 	'goal':'',
 	'id':0,
 }
-var games;
 
 function randomChallenge(){
 	index = Math.floor(Math.random()*allChallenges.length);
-	challenge.stringToMatch = allChallenges[index]['text'];
-	challenge.goal = allChallenges[index]['goal'];
+	challenge.stringToMatch = allChallenges[index].text;
+	challenge.goal = allChallenges[index].goal;
 	challenge.id = index;
 	return challenge;
 }
 
 function range(start, count) {
   return Array.apply(0, Array(count))
-    .map(function (element, index) { 
+    .map(function (element, index) {
       return index + start;  
   });
 //http://stackoverflow.com/questions/3895478/does-javascript-have-a-method-like-range-to-generate-an-array-based-on-suppl
@@ -61,8 +58,8 @@ function iswin(matches,challengeId){
 		var i = 0;
 		var goal = allChallenges[index]['goal'];
 		if(matches == null || matches.length == 0 || matches.length == 1 && matches[0] == '') return false;
-		charsMatch = matches.every(function(match){
-			nums = range(match.index+1,match[0].length) // add 1 because goal uses 1-based indexing
+		var charsMatch = matches.every(function(match){
+			var nums = range(match.index+1,match[0].length) // add 1 because goal uses 1-based indexing
 			return nums.every(function(num){
 				return num == goal[i++];
 			})
@@ -74,12 +71,13 @@ function iswin(matches,challengeId){
 function applyRegex(regexString,challengeId){
 	var regexText = regexString.slice(0,regexString.lastIndexOf('/'));
 	var flagText = regexString.split('/').pop();
+	var match;
 	try{
 		var re = new RegExp(regexText, flagText);
 	}
 	catch(SyntaxError){ return; }
-	matches = [];
-	stringToMatch = allChallenges[challengeId]['text'];
+	var matches = [];
+	var stringToMatch = allChallenges[challengeId]['text'];
 
 	if(re.flags.search('g') > -1){
 		while((match = re.exec(stringToMatch)) != null && match != ''){
@@ -124,7 +122,7 @@ app.get('/room/:id', function(req,res){
 })
 
 io.on('connection', function(socket){
-
+    console.log("url: " + socket.handshake.url);
 	socket.on('disconnect', function(){
 		// leave room
 	})
@@ -152,7 +150,7 @@ io.on('connection', function(socket){
 		io.in(id).emit('connected',challenge);
 		console.log(socket.id + 'joined room ' + id);
 		}
-	});
+	);
 })
 
 http.listen(8080, function(){
