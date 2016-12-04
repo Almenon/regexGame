@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta name="keywords" content="online regex editor, regex">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
+    <meta name="description" content="Practice your regex here">
+    <link rel="stylesheet" type="text/css" href="stylesheets/practice.css">
+  </head>
+  <body>
+    <div id="superContainer">
+      <div class="panel panel-default">
+        <div id="mine" class="panel-body">
+          <p style="display:inline-block" class="status"></p>
+        </div>
+      </div>
+    </div>
+    <input id="regexInput" type="text" placeholder="regex here" class="form-control">
+    <input id="flagsInput" type="text" placeholder="mig" class="form-control"><span data-toggle="modal" data-target="#helpModal" class="glyphicon glyphicon-question-sign"></span>
+    <div id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" class="modal fade">
+      <div role="document" class="modal-dialog"></div>
+      <div class="modal-content">
+        <div class="modal-header"></div>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+        <h4 id="myModalLabel" class="modal-title">Help</h4>
+        <div class="modal-body"></div><a role="button" data-toggle="collapse" href="#explanation1" class="btn btn-primary">How do I play?</a>
+        <div id="explanation1" class="collapse">
+          <div class="well"></div>Underline the green text to win.	Use shorter regex and be speedy for a higher score
+        </div><a role="button" data-toggle="collapse" href="#explanation2" class="btn btn-primary">What is Regex?</a>
+        <div id="explanation2" class="collapse">
+          <div class="well">If you don't know what regex is, this is not the place for you</div>
+        </div><a role="button" data-toggle="collapse" href="#explanation3" class="btn btn-primary">What are these flags?</a>
+        <div id="explanation3" class="collapse">
+          <div class="well"></div>* m: multiline (anchors apply to each line)<br>		 * i: case-insensitive<br>		 * g: global<br>		 * javascript does not have any other flags
+        </div>
+        <div class="modal-footer"></div>
+        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+      </div>
+    </div>
+    <script src="js/practice.js"></script>
+    <div id="winModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" class="modal fade">
+      <div role="document" class="modal-dialog"></div>
+      <div class="modal-content">
+        <div class="modal-header"></div>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+        <h4 id="myModalLabel" class="modal-title">You Won!</h4>
+        <div class="modal-body"></div>
+        <p id="score"></p>
+        <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;layout=button&amp;size=small&amp;mobile_iframe=true&amp;width=58&amp;height=20&amp;appId" width="58" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe><a href="https://twitter.com/share" data-show-count="false" class="twitter-share-button">Tweet</a>
+        <script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <div class="modal-footer"></div>
+        <button id="playAgain" type="button" data-dismiss="modal" class="btn btn-default">Play Again</button>
+      </div>
+    </div>
+    <script src="socketio/socket.io.min.js"></script>
+    <script src="js/jquery.lettering-0.6.1.min.js	"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/practice.js"></script>
+  </body>
+</html>
