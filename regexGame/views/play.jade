@@ -1,6 +1,6 @@
 ﻿extends gameLayout
 
-block head
+block gameHead
 	meta(name='description', content='Practice regex against others')
 	link(rel='stylesheet', type='text/css', href='stylesheets/practice.css')
 
@@ -13,5 +13,5 @@ block game
 
 
 block gameScript
+	script(src='js/socket.io.min.js')
 	script(src='js/play.js')
-	script(src='socketio/socket.io.min.js')
