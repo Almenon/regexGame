@@ -47,8 +47,6 @@
     <Content Include="public\stylesheets\create.css" />
     <Content Include="public\stylesheets\homepage.css" />
     <Content Include="public\stylesheets\practice.css" />
-    <Content Include="README.md" />
-    <Content Include="typings.json" />
     <Content Include="views\create.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\gameLayout.jade" />
@@ -72,6 +70,7 @@
     <Folder Include="typings\globals\debug\" />
     <Folder Include="typings\globals\express-serve-static-core\" />
     <Folder Include="typings\globals\express\" />
+    <Folder Include="typings\globals\grunt\" />
     <Folder Include="typings\globals\gulp-gzip\" />
     <Folder Include="typings\globals\jade\" />
     <Folder Include="typings\globals\jquery\" />
@@ -91,6 +90,7 @@
     <TypeScriptCompile Include="typings\globals\debug\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\express-serve-static-core\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\grunt\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\gulp-gzip\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jquery\index.d.ts" />
