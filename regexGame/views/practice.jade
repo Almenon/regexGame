@@ -5,8 +5,9 @@ block gameHead
 	link(rel='stylesheet', type='text/css', href='stylesheets/practice.css')
 
 block game
-	#mine.panel-body
-		p.status(style='display:inline-block')
+	.panel.panel-default
+		#mine.panel-body
+			p.status(style='display:inline-block')
 
 	block gameScript
 		script(src='js/practice.js')
