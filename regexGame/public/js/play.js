@@ -80,7 +80,7 @@ function waitForChallenger(){
 	console.log('waiting');
 }
 
-socket.emit('newPlayer','');
+socket.emit('joinRoom','');
 $('#flagsInput').on('keyup',onFlags);
 waitForChallenger();
 
