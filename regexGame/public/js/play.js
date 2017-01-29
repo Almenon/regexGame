@@ -130,7 +130,7 @@ socket.on('won', function(notUsed){
 	var score = 500-regexString.length-numSeconds
 	socket.emit('won',String(score))
 	$('#winModal').modal();
-	$('#score').text(String(score) + ' points');
+	$('#score').html('<p>You solved the challenge in <b>' + String(numSeconds) + '</b> seconds using <b>' + String(regexString.length) + '</b> characters for a total of <b>' + String(score) + '</b> points!</p>');
 	$('#playAgain').on('click',function(){
 		location.reload();
 	});

@@ -66,7 +66,7 @@ function handleInput(regexString,flags){
 		var numSeconds = Math.floor((endTime - startTime)/1000);
 		var score = 500-regexString.length-numSeconds
 		$('#winModal').modal();
-		$('#score').text(String(score) + ' points');
+		$('#score').html('<p>You solved the challenge in <b>' + String(numSeconds) + '</b> seconds using <b>' + String(regexString.length) + '</b> characters for a total of <b>' + String(score) + '</b> points!</p>');
 		$('#playAgain').on('click',function(){
 			location.reload();
 		});
