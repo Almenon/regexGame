@@ -16,13 +16,15 @@
             "request": "launch",
             "name": "Launch Server",
             "program": "${workspaceRoot}/regexGame/bin/www",
-            "cwd": "${workspaceRoot}"
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "start"
         },
         {
             "type": "node",
             "request": "attach",
             "name": "Attach to Process",
-            "port": 5858
+            "port": 5858,
+            "restart": true
         }
     ]
 }
