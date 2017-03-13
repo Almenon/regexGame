@@ -1,29 +1,57 @@
 ﻿extends layout
 
+block head
+	script(src='js/jquery.lettering-0.6.1.min.js')
+	block gameHead
+
 block body
 	#superContainer
-		.panel.panel-default
-			block game
+		block game
 	input#regexInput.form-control(type='text', placeholder='regex here')
 	input#flagsInput.form-control(type='text', placeholder='mig')
-	block optionalHelp
+	span.glyphicon.glyphicon-question-sign(data-toggle='modal', data-target='#helpModal')
 
+	#helpModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+		.modal-dialog(role='document')
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') ×
+					h4#myModalLabel.modal-title Help
+				.modal-body
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation1') How do I play?
+					#explanation1.collapse
+						.well
+							| Underline the green text to win.  Use shorter regex and be speedy for a higher score
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation2') What is Regex?
+					#explanation2.collapse
+						.well If you don't know what regex is, this is not the place for you
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation3') What are these flags?
+					#explanation3.collapse
+						.well
+							| * m: multiline (anchors apply to each line)
+							br
+							|		 * i: case-insensitive
+							br
+							|		 * g: global
+							br
+							|		 * javascript does not have any other flags
+				.modal-footer
+					button.btn.btn-default(type='button', data-dismiss='modal') Close
 
 	#winModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
 		.modal-dialog(role='document')
-		.modal-content
-			.modal-header
-			button.close(type='button', data-dismiss='modal', aria-label='Close')
-				span(aria-hidden='true') ×
-			h4#myModalLabel.modal-title You Won!
-			.modal-body
-			p#score
-			iframe(src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&layout=button&size=small&mobile_iframe=true&width=58&height=20&appId', width='58', height='20', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
-			a.twitter-share-button(href='https://twitter.com/share', data-show-count='false') Tweet
-			script(async='', src='//platform.twitter.com/widgets.js', charset='utf-8')
-			.modal-footer
-			button#playAgain.btn.btn-default(type='button', data-dismiss='modal') Play Again
-	script(src='js/jquery.lettering-0.6.1.min.js\
-	')
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') ×
+					h4#myModalLabel.modal-title You Won!
+				.modal-body
+					p#score
+					iframe(src='https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&layout=button&size=small&mobile_iframe=true&width=58&height=20&appId', width='58', height='20', style='border:none;overflow:hidden', scrolling='no', frameborder='0', allowtransparency='true')
+					a.twitter-share-button(href='https://twitter.com/share', data-show-count='false') Tweet
+					script(async='', src='//platform.twitter.com/widgets.js', charset='utf-8')
+				.modal-footer
+					button#playAgain.btn.btn-default(type='button', data-dismiss='modal') Play Again
 	script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
 	block gameScript
