@@ -15,7 +15,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Server",
-            "program": "${workspaceRoot}/regexGame/bin/www",
+            "program": "${workspaceRoot}/bin/www",
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "start"
         },
