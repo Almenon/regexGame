@@ -43,8 +43,9 @@ mark{
 	width: 38.5%;
 }
 #flagsInput{
-	width: 10.1%;
+	margin-left: 4px;
 	display:inline-block;
+	width: 10.1%;
 }
 
 
