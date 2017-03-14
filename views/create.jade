@@ -1,4 +1,4 @@
-﻿extends layout
+﻿extends gameLayout
 
 block gameHead
 	meta(name='description', content='Practice your regex here')
@@ -20,13 +20,13 @@ block body
 						span(aria-hidden='true') ×
 					h4#myModalLabel.modal-title Help
 				.modal-body
-					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation1') How do I play?
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation1') What is this?
 					#explanation1.collapse
 						.well
-							| Underline the green text to win.  Use shorter regex and be speedy for a higher score
-					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation2') What is Regex?
+							| Use this for creating your own regex challenges.
+					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation2') How do I do create?
 					#explanation2.collapse
-						.well If you don't know what regex is, this is not the place for you
+						.well Type text in the input box and a regex in the bottom box.  Press f12 and type y() in the console to get a JSON formatted regex challenge
 					a.btn.btn-primary(role='button', data-toggle='collapse', href='#explanation3') What are these flags?
 					#explanation3.collapse
 						.well
