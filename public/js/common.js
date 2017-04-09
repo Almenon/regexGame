@@ -6,7 +6,7 @@ enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
 
 function changeFlags(input){
 	try{
-		var re = new RegExp('',input);
+		RegExp('',input);
 	}
 	catch(SyntaxError){
 		$('#flagsInput').css({"border": '#FF0000 2px solid'});
@@ -19,7 +19,7 @@ function changeFlags(input){
 
 function highlightRegExp(re,element){
 	$(element + ' span').removeClass('highlight');
-	var matches = [];
+	var matches = []; var match;
 
 	if(flags.search('g') > -1){ // when IE supports re.flags use that instead
 		while((match = re.exec(stringToMatch)) != null && match != ''){
@@ -37,7 +37,7 @@ function highlightRegExp(re,element){
 }
 
 function highlightMatch(match, element){
-	letters = range(match.index+1, match[0].length)
+	var letters = range(match.index+1, match[0].length)
 	letters.forEach(function(letterNum){
 		$(element + ' span.char'+ letterNum.toString()).addClass('highlight');
 	})	
