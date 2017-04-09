@@ -29,25 +29,7 @@ var challenges = hard.concat(easy);
 var index = Math.floor(Math.random()*challenges.length)
 var stringToMatch = challenges[index].text
 var goal = challenges[index].goal
-var myText;
-var opponentText;
-var flags = ''
-var enter = $.Event( 'keyup', { keyCode: 13, which: 13 } );
 var startTime;
-var regexString;
-
-function range(start, count) {
-  return Array.apply(0, Array(count))
-	.map(function (element, index) { 
-	  return index + start;  
-  });
-//http://stackoverflow.com/questions/3895478
-}
-
-$('#regexInput').on('keyup',function(event) {
-	regexString = $('#regexInput').val();
-	handleInput(regexString,flags)
-});
 
 function handleInput(regexString,flags){
 	try{
@@ -58,7 +40,7 @@ function handleInput(regexString,flags){
 		return false;
 	}
 	$('#regexInput').css({"border": ''})
-	matches = highlightRegExp(re,'#mine .text')
+	var matches = highlightRegExp(re,'#mine .text')
 
 	if(iswin(matches)){
 		// go to win page w/ score
@@ -77,33 +59,6 @@ function handleInput(regexString,flags){
 }
 
 
-
-function highlightRegExp(re,element){
-	$(element + ' span').removeClass('highlight');
-	matches = [];
-
-	if(flags.search('g') > -1){ // when IE supports re.flags use that instead
-		while((match = re.exec(stringToMatch)) != null && match != ''){
-			highlightMatch(match,element);
-			matches.push(match);
-		}
-	}
-	else{
-		match = re.exec(stringToMatch)
-		if(match == null){return;}
-		highlightMatch(match,element);
-		matches.push(match);
-	}
-	return matches;
-}
-
-function highlightMatch(match, element){
-	letters = range(match.index+1, match[0].length)
-	letters.forEach(function(letterNum){
-		$(element + ' span.char'+ letterNum.toString()).addClass('highlight');
-	})	
-}
-
 function iswin(matches){
 		var i = 0;
 		if(matches == null || matches.length == 0 || matches.length == 1 && matches[0] == '') return false;
@@ -115,23 +70,6 @@ function iswin(matches){
 		})
 		return i == goal.length && charsMatch
 		// make sure all chars have been tested and that chars match
-}
-
-$('#flagsInput').on('keyup',function(event){
-	changeFlags($('#flagsInput').val());
-});
-
-function changeFlags(input){
-	try{
-		var re = new RegExp('',input);
-	}
-	catch(SyntaxError){
-		$('#flagsInput').css({"border": '#FF0000 2px solid'});
-		return false;
-	}
-	$('#flagsInput').css({"border": ''});
-	flags = input;
-	handleInput(regexString,flags);
 }
 
 function highlightByNums(nums){
