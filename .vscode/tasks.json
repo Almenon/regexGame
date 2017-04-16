@@ -2,6 +2,6 @@
     "version": "0.1.0",
     "command": "start",
     "isShellCommand": true,
-    "args": ["chrome","http://localhost:3000"],
+    "args": ["chrome","http://localhost:8080"],
     "showOutput": "never"
 }
