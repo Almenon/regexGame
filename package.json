@@ -25,6 +25,8 @@
     "socket.io": "~1.7.0"
   },
   "devDependencies": {
+    "@types/jquery": "^3.2.6",
+    "@types/socket.io": "^1.4.29",
     "eslint": "^3.11.0",
     "grunt": "^1.0.1",
     "grunt-bower-concat": "^1.0.0",
